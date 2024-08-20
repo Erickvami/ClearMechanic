@@ -1,0 +1,63 @@
+# .NET Core
+bin/
+obj/
+project.lock.json
+project.fragment.lock.json
+*.log
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# User secrets
+secrets.json
+
+# Local development environment files
+.env
+
+# Microsoft Azure
+azuredeploy.json
+azuredeploy.parameters.json
+
+# npm packages
+node_modules/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Rider IDE
+.idea/
+
+# VS Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET
+*.dbmdl
+*.bak
+*.mdf
+*.ldf
+*.pdb
+*.jfm
+
+# SQL Server
+*.sql
+
+# Environment files
+.env
+
+# NuGet
+*.nupkg
+*.snupkg
