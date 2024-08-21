@@ -12,7 +12,7 @@ namespace ClearMechanic.Api.Controllers
     {
         // GET: api/genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> Get()
+        public async Task<ActionResult<IEnumerable<Genre>>> Get()
         {
             return Ok(await movieService.GetAll());
         }

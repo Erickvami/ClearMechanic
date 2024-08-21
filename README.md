@@ -22,10 +22,16 @@ Project Structure
 
 - Services/IMovieService.cs: Defines the interface for movie-related operations, ensuring that the service implementation adheres to a contract.
 
-## How to Run:
+## How to Run
+To run Api you just need the followed command
 ```shell
 dotnet run --urls "https://localhost:7216;http://localhost:5142"
 ```
+Also there are test at https://github.com/Erickvami/ClearMechanic.Tests where you can run the tests by
+```shell
+dotnet test
+```
+
 
 ## Functionality
 
@@ -83,3 +89,6 @@ The data models define the structure of the entities in the database. They inclu
 Database Context
 
 The ApplicationDbContext class is responsible for managing the database connection and tracking entity changes. It uses Entity Framework Core to handle database operations and ensure consistency.
+
+## Frontend
+If want to see the UI that implements the current api you can access to the React ts repo https://github.com/Erickvami/clear-mechanic-portal
