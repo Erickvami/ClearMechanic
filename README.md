@@ -22,6 +22,11 @@ Project Structure
 
 - Services/IMovieService.cs: Defines the interface for movie-related operations, ensuring that the service implementation adheres to a contract.
 
+## How to Run:
+```shell
+dotnet run --urls "https://localhost:7216;http://localhost:5142"
+```
+
 ## Functionality
 
 The API provides comprehensive functionality for managing movies:
