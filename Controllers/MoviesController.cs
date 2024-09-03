@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ClearMechanic.Data.Models;
 using ClearMechanic.Data.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClearMechanic.Api.Controllers
 {
@@ -50,6 +51,34 @@ namespace ClearMechanic.Api.Controllers
 
             movie = await movieService.CreateMovieAsync(movie);
             return CreatedAtAction(nameof(GetById), new { id = movie.Id }, movie);
+        }
+        // PUT: api/movies
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] Movie updatedMovie)
+        {
+            if (id != updatedMovie.Id)
+            {
+                return BadRequest("The ID in the URL does not match the ID in the movie object.");
+            }
+
+            // Check if the movie exists in the database
+            var existingMovie = await movieService.GetById(id, false, false);
+            if (existingMovie == null)
+            {
+                return NotFound();
+            }
+
+            // Update the movie details
+            try
+            {
+                await movieService.UpdateMovieAsync(updatedMovie);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+
+            return NoContent();
         }
 
         // DELETE: api/movies/{id}

@@ -10,5 +10,6 @@ namespace ClearMechanic.Data.Services {
         Task<Movie> CreateMovieAsync(Movie movie);
         Task ValidateMovieAsync(Movie movie);
         Task DeleteAsync(int id, bool? isSoft = false);
+        Task UpdateMovieAsync(Movie updatedMovie);
     }
 }

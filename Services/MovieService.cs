@@ -78,5 +78,48 @@ namespace ClearMechanic.Data.Services {
 
             await movieRepository.DeleteAsync(id, isSoft: true);
         }
+
+        public async Task UpdateMovieAsync(Movie updatedMovie)
+        {
+            await movieRepository.ExecuteTransaction(async () =>
+            {
+                // Obtener la película existente incluyendo actores y géneros
+                var existingMovie = await GetById(updatedMovie.Id, true , true);
+
+                if (existingMovie == null) throw new InvalidOperationException("Movie not found.");
+
+                // Actualizar las propiedades simples
+                existingMovie.Title = updatedMovie.Title;
+                existingMovie.Description = updatedMovie.Description;
+                existingMovie.Registered = updatedMovie.Registered;
+                existingMovie.IsDeleted = updatedMovie.IsDeleted;
+                existingMovie.ImageURI = updatedMovie.ImageURI;
+
+                // Manejar la actualización de la relación con los actores
+                existingMovie.Actors.Clear();  // Limpiar la lista actual
+                foreach (var actor in updatedMovie.Actors)
+                {
+                    var existingActor = await actorRepository.GetById(actor.Id);
+                    if (existingActor != null)
+                    {
+                        existingMovie.Actors.Add(existingActor);  // Agregar actores existentes
+                    }
+                }
+
+                // Manejar la actualización de la relación con los géneros
+                existingMovie.Genres.Clear();  // Limpiar la lista actual
+                foreach (var genre in updatedMovie.Genres)
+                {
+                    var existingGenre = await genreRepository.GetById(genre.Id);
+                    if (existingGenre != null)
+                    {
+                        existingMovie.Genres.Add(existingGenre);  // Agregar géneros existentes
+                    }
+                }
+
+                // Usar el método UpdateAsync del repositorio para guardar los cambios
+                await movieRepository.UpdateWithRelationshipsAsync(existingMovie);
+            });
+        }
     }
 }

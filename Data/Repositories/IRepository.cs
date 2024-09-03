@@ -10,5 +10,8 @@ namespace ClearMechanic.Data.Repositories {
         Task Insert(T entity);
         Task InsertRange(IEnumerable<T> entities);
         Task<bool> Exist(int entityId);
+        Task ExecuteTransaction(Func<Task> action);
+        Task UpdateAsync(T entity);
+        Task UpdateWithRelationshipsAsync(T entity);
     }
 }

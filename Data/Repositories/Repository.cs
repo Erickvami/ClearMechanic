@@ -148,6 +148,38 @@ namespace ClearMechanic.Data.Repositories {
             await context.SaveChangesAsync();
         }
 
+        public async Task UpdateWithRelationshipsAsync(T entity)
+        {
+            var entry = context.Entry(entity);
+
+            foreach (var navigation in entry.Navigations)
+            {
+                if (navigation.CurrentValue is IEnumerable<object> relatedEntities)
+                {
+                    foreach (var relatedEntity in relatedEntities)
+                    {
+                        var relatedEntry = context.Entry(relatedEntity);
+                        if (relatedEntry.State == EntityState.Detached)
+                        {
+                            context.Attach(relatedEntity);
+                        }
+                    }
+                }
+                else if (navigation.CurrentValue != null)
+                {
+                    var relatedEntry = context.Entry(navigation.CurrentValue);
+                    if (relatedEntry.State == EntityState.Detached)
+                    {
+                        context.Attach(navigation.CurrentValue);
+                    }
+                }
+            }
+
+            context.Set<T>().Update(entity);
+
+            await context.SaveChangesAsync();
+        }
+
         /// <summary>
         /// Allows to do many transactions and do rollback if one action fails
         /// </summary>
