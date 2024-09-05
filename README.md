@@ -25,7 +25,7 @@ Project Structure
 ## How to Run
 To run Api you just need the followed command
 ```shell
-dotnet run --urls "https://localhost:7216;http://localhost:5142"
+dotnet run
 ```
 Also there are test at https://github.com/Erickvami/ClearMechanic.Tests where you can run the tests by
 ```shell
